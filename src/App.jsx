@@ -13,7 +13,7 @@ function App() {
   return (
   <BrowserRouter>
   <Routes>
-    <Route path="/home" element={<Home/>}/>
+    <Route path="/" element={<Home/>}/>
      <Route path="/addtask" element={<AddTask/>}/>
     <Route path="*" element={<Navigate to="/home" />}/>
   </Routes>
