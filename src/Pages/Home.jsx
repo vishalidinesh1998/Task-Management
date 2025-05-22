@@ -1,13 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { TaskContext } from "./TaskContent";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { tableList, deleteTask, editTask } = useContext(TaskContext);
   const navigate = useNavigate();
+  const [filterdata, setfileter] = useState("");
 
-  // Filtered tasks — here we can customize it, or just use tableList directly
-  const filteredTasks = tableList; // If no filter needed, just use tableList
+  const filteredTasks = tableList.filter((task) =>
+    task.title.toLowerCase().includes(filterdata.toLowerCase()) ||
+    task.status.toLowerCase().includes(filterdata.toLowerCase()) ||
+    task.dueDate.toLowerCase().includes(filterdata.toLowerCase())
+  );
 
   const handleAddTask = () => navigate("/addtask");
   const handleEdit = (index) => {
@@ -26,6 +30,16 @@ function Home() {
       >
         Add Task
       </button>
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search here"
+          value={filterdata}
+          onChange={(e) => setfileter(e.target.value)}
+          className="border px-2 py-1 rounded"
+        />
+      </div>
 
       <table className="w-full border rounded-lg">
         <thead className="bg-gray-100">
